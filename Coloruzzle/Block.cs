@@ -3,13 +3,135 @@ namespace Coloruzzle;
 public class Block
 {
     private string _blockVisual = "\u2588\u2588";
+    
+    private string _borderVisual = "\u2588";
+    private string _borderDownVisual = "\u2580";
+    private string _borderUpperVisual = "\u2584";
+    
     private int _colorNumber; //0 blue, 1 yellow, 2 red, 3 pink
+    private int _startLeftPosition;
+    private int _startTopPosition;
 
     public Block(int cursorLeft, int cursorTop)
     {
+        _startTopPosition = cursorTop;
+        _startLeftPosition = cursorLeft;
+        
         _colorNumber = BlockChooseRandomColor(_colorNumber);
         Console.ForegroundColor = _blockColor(_colorNumber);
         BlockSpawn(cursorLeft, cursorTop);
+    }
+
+    public void ClearBlockBorder()
+    {
+        int startLeftPosition = _startLeftPosition - 1;
+        int startTopPosition = _startTopPosition - 1;
+        
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(startLeftPosition, startTopPosition);
+        
+        for (int i = 1; i < 23; i++) //нужно 22 раз пройтись по ячейкам рядом
+        {
+            if (i < 9)
+            {
+                Console.Write(" ");
+                startLeftPosition += 2;
+            }
+
+            if (i > 14)
+            {
+                Console.Write(" ");
+                startLeftPosition += 2;
+            }
+
+            switch (i)
+            {
+                case 9:
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition);
+                    Console.Write(" ");
+                    break;
+                case 10:
+                    Console.SetCursorPosition(_startLeftPosition+6, _startTopPosition);
+                    Console.Write(" ");
+                    break;
+                case 11:
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition+1);
+                    Console.Write(" ");
+                    break;
+                case 12:
+                    Console.SetCursorPosition(_startLeftPosition+6, _startTopPosition+1);
+                    Console.Write(" ");
+                    break;
+                case 13:
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition+2);
+                    Console.Write(" ");
+                    break;
+                case 14:
+                    Console.SetCursorPosition(_startLeftPosition+6, _startTopPosition+2);
+                    Console.Write(" ");
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition+3);
+                    startLeftPosition = _startLeftPosition - 2;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    public void DrawBlockBorder()
+    {
+        int startLeftPosition = _startLeftPosition - 1;
+        int startTopPosition = _startTopPosition - 1;
+        
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(startLeftPosition, startTopPosition);
+        
+        for (int i = 1; i < 23; i++) //нужно 22 раз пройтись по ячейкам рядом
+        {
+            if (i < 9)
+            {
+                Console.Write(_borderUpperVisual);
+                startLeftPosition += 2;
+            }
+
+            if (i > 14)
+            {
+                Console.Write(_borderDownVisual);
+                startLeftPosition += 2;
+            }
+
+            switch (i)
+            {
+                case 9:
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition);
+                    Console.Write(_borderVisual);
+                    break;
+                case 10:
+                    Console.SetCursorPosition(_startLeftPosition+6, _startTopPosition);
+                    Console.Write(_borderVisual);
+                    break;
+                case 11:
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition+1);
+                    Console.Write(_borderVisual);
+                    break;
+                case 12:
+                    Console.SetCursorPosition(_startLeftPosition+6, _startTopPosition+1);
+                    Console.Write(_borderVisual);
+                    break;
+                case 13:
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition+2);
+                    Console.Write(_borderVisual);
+                    break;
+                case 14:
+                    Console.SetCursorPosition(_startLeftPosition+6, _startTopPosition+2);
+                    Console.Write(_borderVisual);
+                    Console.SetCursorPosition(_startLeftPosition-1, _startTopPosition+3);
+                    startLeftPosition = _startLeftPosition - 2;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     private void BlockSpawn(int cursorLeft, int cursorTop)
