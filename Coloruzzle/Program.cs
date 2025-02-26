@@ -1,21 +1,28 @@
 ﻿using System.Drawing;
+using System.Net.Mime;
 
 namespace Coloruzzle;
 
 class Program
 {
-    private static bool _GameIsRunning = true;
+    public static bool _GameIsRunning = true;
     static void Main(string[] args)
     {
         Console.CursorVisible = false;
         GameUI.DisplayAppLogo();
-        GameManager.DrawGameField();
+        GameUI.DisplayHowToPlay();
+        GameManager.DrawGameField(0);
         
         while (_GameIsRunning)
         {
             GameManager.PlayerMovement();
         }
 
-        Console.ReadLine();
+        Console.Beep();
+        Thread.Sleep(3000);
+        Console.Clear();
+        Thread.Sleep(3000);
+        Environment.Exit(0);
+        
     }
 }

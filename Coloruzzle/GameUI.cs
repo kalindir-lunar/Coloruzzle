@@ -26,4 +26,11 @@ public class GameUI
         Console.WriteLine("------------------------------------------------------------------");
         Console.WriteLine("");
     }
+
+    public static void DisplayHowToPlay()
+    {
+        Console.SetCursorPosition(10, 24);
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("WASD to move and Space to change fields color.");
+    }
 }

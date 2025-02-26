@@ -8,9 +8,9 @@ public class Block
     private string _borderDownVisual = "\u2580";
     private string _borderUpperVisual = "\u2584";
     
-    private int _colorNumber; //0 blue, 1 yellow, 2 red, 3 pink
-    private int _startLeftPosition;
-    private int _startTopPosition;
+    public int _colorNumber; //0 blue, 1 yellow, 2 red, 3 pink
+    public int _startLeftPosition;
+    public int _startTopPosition;
 
     public Block(int cursorLeft, int cursorTop)
     {
@@ -22,6 +22,23 @@ public class Block
         BlockSpawn(cursorLeft, cursorTop);
     }
 
+    public void DEBUG_GetPosition()
+    {
+        Console.WriteLine($"Start position: {_startLeftPosition}, {_startTopPosition}");
+    }
+
+    public void ChangeBlockColorAndRedraw()
+    {
+        _colorNumber++;
+        if (_colorNumber == 4)
+        {
+            _colorNumber = 0;
+        }
+        
+        Console.ForegroundColor = _blockColor(_colorNumber);
+        BlockSpawn(_startLeftPosition, _startTopPosition);
+    }
+        
     public void ClearBlockBorder()
     {
         int startLeftPosition = _startLeftPosition - 1;
@@ -136,7 +153,6 @@ public class Block
 
     private void BlockSpawn(int cursorLeft, int cursorTop)
     {
-        Console.ForegroundColor = _blockColor(_colorNumber);
         for (int i = 0; i < 3; i++)
         {
             Console.SetCursorPosition(cursorLeft, cursorTop);
